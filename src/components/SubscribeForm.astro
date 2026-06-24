@@ -1,0 +1,9 @@
+---
+import Icon from './Icon.astro';
+const { button = 'Benachrichtigen lassen' } = Astro.props;
+---
+<form class="subscribe-inline" action="mailto:kontakt@forgepool.de" method="post" enctype="text/plain">
+  <label class="sr-only" for="subscribe-email">E-Mail-Adresse</label>
+  <input id="subscribe-email" name="email" type="email" placeholder="E-Mail-Adresse" autocomplete="email" />
+  <button type="submit"><span class="button-small-icon"><Icon name="bell" /></span>{button}</button>
+</form>

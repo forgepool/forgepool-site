@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import RoadmapTimeline from '../components/RoadmapTimeline.astro';
+---
+<BaseLayout title="ForgePool Roadmap" active="roadmap" background="desert" pageClass="roadmap-page">
+  <Fragment slot="header"><Header active="roadmap" /></Fragment>
+  <section class="roadmap-content">
+    <div class="roadmap-hero">
+      <p class="eyebrow">ForgePool Roadmap</p>
+      <h1>Der Aufbau von ForgePool.</h1>
+      <p class="lead">Unser öffentlicher Build-Journey: von der Testumgebung bis zum produktiven Cardano Stake Pool.</p>
+    </div>
+    <RoadmapTimeline />
+  </section>
+</BaseLayout>

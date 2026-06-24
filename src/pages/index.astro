@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import ButtonLink from '../components/ButtonLink.astro';
+import WaitlistForm from '../components/WaitlistForm.astro';
+---
+<BaseLayout title="ForgePool — Cardano Stake Pool" active="start" background="home" pageClass="home-page">
+  <Fragment slot="header"><Header active="start" /></Fragment>
+  <section class="page-section hero-home">
+    <div class="home-copy">
+      <p class="eyebrow">Cardano Stake Pool</p>
+      <h1>Ein Stake Pool.<br />Transparent betrieben.<br /><span class="highlight">Langfristig</span> gedacht</h1>
+      <p class="lead">Zuverlässige Infrastruktur, klare Kommunikation und ein nachhaltiger Beitrag zum Cardano-Netzwerk.</p>
+      <div class="hero-actions" aria-label="Primäre Aktionen">
+        <ButtonLink href="/roadmap/" variant="primary" icon="cube" label="Projekt Roadmap" />
+        <ButtonLink href="/blog/" variant="secondary" icon="logo" label="Engineering Journal" />
+      </div>
+    </div>
+    <div class="home-waitlist">
+      <WaitlistForm
+        label="Milestone 2 - Pre-Launch"
+        title="ForgePool ist noch im Aufbau."
+        body="Erhalte eine Benachrichtigung, sobald der Pool live geht und die ersten Delegationen möglich sind."
+      />
+    </div>
+  </section>
+</BaseLayout>

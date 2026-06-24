@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+const {
+  title = 'Kein Update verpassen',
+  label = 'Launch-Benachrichtigung',
+  body = 'Erhalte eine Benachrichtigung, sobald ForgePool live geht und die ersten Delegationen möglich sind.',
+  button = 'Benachrichtigen lassen',
+  compact = false,
+} = Astro.props;
+const inputId = `email-${title.replaceAll(' ', '-').toLowerCase()}`;
+---
+<section class:list={['waitlist-card', { compact }]}> 
+  <p class="card-label"><span class="label-dot" aria-hidden="true"></span>{label}</p>
+  <h2>{title}</h2>
+  <p>{body}</p>
+  <form class="waitlist-form" action="mailto:kontakt@forgepool.de" method="post" enctype="text/plain">
+    <label class="sr-only" for={inputId}>E-Mail-Adresse</label>
+    <input id={inputId} name="email" type="email" placeholder="E-Mail-Adresse" autocomplete="email" />
+    <button type="submit"><span class="button-small-icon"><Icon name="bell" /></span>{button}</button>
+  </form>
+  <p class="form-note">Nur wichtige Launch-Updates. Kein Spam.</p>
+</section>

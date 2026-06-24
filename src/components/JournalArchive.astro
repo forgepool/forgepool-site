@@ -1,0 +1,29 @@
+---
+const posts = [
+  { date: '6. Mai 2026', title: 'Epoch 518 - Rückblick & Ausblick', tag: 'Pool Updates', tagClass: 'pool', teaser: 'Fortschritt, Betrieb und die nächsten Schritte.' },
+  { date: '4. Mai 2026', title: 'Infrastruktur-Update - Mai 2026', tag: 'Infrastruktur', tagClass: 'infra', teaser: 'Monitoring, Backups und kleine Verbesserungen im Setup' },
+  { date: '1. Mai 2026', title: 'Warum ich ForgePool betreibe', tag: 'Persönlicher Blog', tagClass: 'personal', teaser: 'Motivation, Haltung und langfristiger Anspruch hinter ForgePool' },
+  { date: '28. April 2026', title: 'Meilenstein 1 abgeschlossen', tag: 'Projekt', tagClass: 'project', teaser: 'Auswertung des ersten Meilensteins' },
+  { date: '25. April 2026', title: 'Aufbau der Teststellung', tag: 'Projekt', tagClass: 'project', teaser: 'Architekturentscheidungen und Aufbau der Infrastruktur' },
+];
+---
+<section class="archive-panel">
+  <div class="archive-head">
+    <div>
+      <h2>Journal Archiv</h2>
+      <p>Alle bisherigen Notizen, Architekturentscheidungen und Fortschritte im Aufbau von ForgePool</p>
+    </div>
+    <a href="/blog/" class="archive-all">Alle Beiträge &gt;</a>
+  </div>
+  <div class="archive-list">
+    {posts.map((post) => (
+      <a href="#" class="archive-row">
+        <time datetime="2026-05-06">{post.date}</time>
+        <strong>{post.title}</strong>
+        <span class={`tag tag-${post.tagClass}`}>{post.tag}</span>
+        <p>{post.teaser}</p>
+        <span class="archive-arrow" aria-hidden="true">→</span>
+      </a>
+    ))}
+  </div>
+</section>

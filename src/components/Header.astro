@@ -1,0 +1,46 @@
+---
+const { active = 'start' } = Astro.props;
+const links = [
+  { key: 'start', href: '/', label: 'Start' },
+  { key: 'blog', href: '/blog/', label: 'Blog' },
+  { key: 'roadmap', href: '/roadmap/', label: 'Roadmap' },
+  { key: 'kontakt', href: '/kontakt/', label: 'Kontakt' },
+];
+---
+<header class="site-header" aria-label="Hauptnavigation" data-site-header>
+  <a href="/" class="brand" aria-label="ForgePool Startseite">
+    <img src="/logos/forgepool-logo.svg" alt="ForgePool" width="206" height="38" />
+  </a>
+
+  <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="primary-navigation" data-menu-toggle>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </button>
+
+  <nav id="primary-navigation" class="nav-links" aria-label="Seitennavigation" data-primary-nav>
+    {links.map((link) => (
+      <a href={link.href} class:list={['nav-link', { active: active === link.key }]}>{link.label}</a>
+    ))}
+  </nav>
+</header>
+
+<script>
+  const header = document.querySelector('[data-site-header]');
+  const button = document.querySelector('[data-menu-toggle]');
+  const nav = document.querySelector('[data-primary-nav]');
+
+  button?.addEventListener('click', () => {
+    const isOpen = header?.classList.toggle('menu-open') ?? false;
+    button.setAttribute('aria-expanded', String(isOpen));
+    button.setAttribute('aria-label', isOpen ? 'Menü schließen' : 'Menü öffnen');
+  });
+
+  nav?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      header?.classList.remove('menu-open');
+      button?.setAttribute('aria-expanded', 'false');
+      button?.setAttribute('aria-label', 'Menü öffnen');
+    });
+  });
+</script>

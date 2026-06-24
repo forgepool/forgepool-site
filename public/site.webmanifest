@@ -1,0 +1,20 @@
+{
+  "name": "ForgePool",
+  "short_name": "ForgePool",
+  "description": "ForgePool wird als Cardano Stake Pool öffentlich aufgebaut.",
+  "icons": [
+    {
+      "src": "/logos/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/logos/web-app-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#243B3A",
+  "background_color": "#F4E7C8",
+  "display": "standalone"
+}

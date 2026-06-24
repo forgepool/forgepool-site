@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+const milestones = [
+  { id: 1, title: 'Meilenstein 1 - Testumgebung & Architektur', body: 'Testumgebung aufgebaut, Architektur validiert, erste Betriebs- und FinOps-Erkenntnisse dokumentiert', status: 'Abgeschlossen', statusClass: 'done', icon: 'check' },
+  { id: 2, title: 'Meilenstein 2 - Pre-Launch & Foundation', body: 'Website, Journal, Roadmap und Build-in-Public-Präsenz werden aufgebaut', status: 'Aktiv', statusClass: 'active', icon: 'pulse', current: true },
+  { id: 3, title: 'Meilenstein 3 - Liveumgebung', body: 'Produktive Relay- und Block-Producer-Umgebung, Monitoring, Security Hardening und Finalisierung der Infrastruktur', status: 'Geplant', statusClass: 'planned', icon: 'clock' },
+  { id: 4, title: 'Meilenstein 4 - Organisation & Business Setup', body: 'Gewerbe, Steuern, Buchhaltung und organisatorische Grundlagen.', status: 'Geplant', statusClass: 'planned', icon: 'clock' },
+  { id: 5, title: 'Meilenstein 5 - Go-Live & Delegator Acquisition', body: 'Pool-Registrierung, Explorer-Einträge, erste Delegationen und Community-Aufbau', status: 'Geplant', statusClass: 'planned', icon: 'clock' },
+  { id: 6, title: 'Meilenstein 6 - Tooling & Betriebsmodell', body: 'Runbooks, Incident Handling, Cost Control und Automatisierung', status: 'Geplant', statusClass: 'planned', icon: 'clock' },
+];
+---
+<section class="roadmap-panel">
+  <ol class="timeline-list">
+    {milestones.map((item) => (
+      <li class:list={['timeline-item', { current: item.current }]}> 
+        <div class="timeline-marker" aria-hidden="true">{item.id}</div>
+        <div class="timeline-content">
+          <h2>{item.title}</h2>
+          <p>{item.body}</p>
+        </div>
+        <span class={`status status-${item.statusClass}`}>
+          <span class="status-icon"><Icon name={item.icon} /></span>
+          <span>{item.status}</span>
+        </span>
+      </li>
+    ))}
+  </ol>
+</section>

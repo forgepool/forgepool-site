@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import FeaturedCard from '../components/FeaturedCard.astro';
+import JournalArchive from '../components/JournalArchive.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
+---
+<BaseLayout title="ForgePool Engineering Journal" active="blog" background="desert" pageClass="blog-page">
+  <Fragment slot="header"><Header active="blog" /></Fragment>
+  <section class="page-section blog-content">
+    <h1 class="section-title">Aktuelle Updates</h1>
+    <div class="feature-grid">
+      <FeaturedCard eyebrow="Pool Update / 6. Mai" title="Epoch 518 - Rückblick & Ausblick" text="Ein ruhiger Blick auf Fortschritt, Betrieb und die nächsten Schritte." />
+      <FeaturedCard eyebrow="Infrastruktur / 4. Mai" title="Infrastruktur-Update - Mai 2026" text="Monitoring, Backups und kleine Verbesserungen im Setup" />
+      <FeaturedCard eyebrow="Persönlicher Blog / 1. Mai" title="Warum ich ForgePool betreibe" text="Motivation, Haltung und langfristiger Anspruch hinter ForgePool" />
+    </div>
+    <JournalArchive />
+    <div class="waitlist-card newsletter-bar">
+      <div>
+        <h2>keine Updates Verpassen</h2>
+        <p>Erhalte eine Benachrichtigung, sobald ein neuer Artikel online ist.</p>
+      </div>
+      <SubscribeForm button="Benachrichtigen lassen" />
+    </div>
+  </section>
+</BaseLayout>

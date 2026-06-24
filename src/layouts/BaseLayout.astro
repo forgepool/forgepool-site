@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+
+const {
+  title = 'ForgePool',
+  description = 'ForgePool wird als Cardano Stake Pool auf Azure aufgebaut – öffentlich dokumentiert von der ersten Architekturentscheidung bis zum produktiven Betrieb.',
+  active = 'start',
+  pageClass = '',
+  background = 'desert',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#243B3A" />
+    <link rel="icon" type="image/svg+xml" href="/logos/favicon.svg" />
+    <link rel="apple-touch-icon" href="/logos/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <div class={`site-page bg-${background} ${pageClass}`}>
+      <slot name="header" />
+      <main>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

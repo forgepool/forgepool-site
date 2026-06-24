@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import WaitlistForm from '../components/WaitlistForm.astro';
+import Icon from '../components/Icon.astro';
+---
+<BaseLayout title="ForgePool Kontakt & Waitlist" active="kontakt" background="desert" pageClass="contact-page">
+  <Fragment slot="header"><Header active="kontakt" /></Fragment>
+  <section class="contact-content">
+    <div class="contact-copy">
+      <p class="eyebrow">Kontakt & Waitlist</p>
+      <h1>Bleib mit ForgePool<br />in <span class="highlight">Verbindung.</span></h1>
+      <p class="lead">ForgePool befindet sich aktuell im Pre-Launch. Wenn du Fragen hast oder zum Start des Pools benachrichtigt werden möchtest, kannst du dich hier eintragen oder direkt Kontakt aufnehmen.</p>
+    </div>
+    <div class="contact-grid">
+      <WaitlistForm
+        label="Launch-Benachrichtigung"
+        title="Kein Update verpassen"
+        body="Erhalte eine Benachrichtigung, sobald der Pool live geht und die ersten Delegationen möglich sind."
+      />
+      <section class="contact-card">
+        <p class="card-label">Direkter Kontakt</p>
+        <p>Bei Fragen zum Projekt, zur Infrastruktur oder zum geplanten Stake Pool, kannst du dich direkt melden.</p>
+        <div class="contact-list">
+          <div class="contact-row">
+            <span class="mini-badge"><Icon name="mail" /></span>
+            <div class="contact-row-content">
+              <strong>E-Mail</strong>
+              <a href="mailto:kontakt@forgepool.de">kontakt@forgepool.de</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
