@@ -32,3 +32,8 @@ Für GitHub Actions muss im Repo das Secret `AZURE_STATIC_WEB_APPS_API_TOKEN` ge
 - Blog archive restored to full content width.
 - Blog newsletter/email box shortened on desktop.
 - Mobile/tablet header is fixed so it remains visible while scrolling.
+
+
+## V8 Änderung
+
+Sitemap-Integration vorübergehend entfernt, da Azure/Oryx-Build mit @astrojs/sitemap fehlschlug. Kann später sauber ergänzt werden.
