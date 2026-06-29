@@ -13,6 +13,6 @@ SVG-Namespace-Angaben wie `xmlns="http://www.w3.org/2000/svg"` sind normal und k
 ## Link-Checks
 
 - `href="#"` Treffer in `src/`: 0
-- `mailto:` Treffer in `src/`: 1
+- `mailto:` Treffer in `src/`: 3
 
-`mailto:` Treffer sind nur dann okay, wenn sie direkte Kontaktlinks sind.
+`mailto:` Treffer sind für direkte Kontakt-/Impressumslinks vorgesehen.

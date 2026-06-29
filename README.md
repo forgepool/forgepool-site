@@ -128,3 +128,15 @@ Die Subscribe-/Waitlist-Felder speichern noch keine Daten. Beim Klick auf den Bu
 - Die Featured-Metazeile nutzt `max-width: calc(100% - 7rem)` und `white-space: nowrap`, damit Kategorie/Datum auf Desktop nicht umbrechen.
 - Die Blogseite darf jetzt vertikal scrollen. Damit bleibt der Newsletter-Hinweis innerhalb der Seite erreichbar.
 - Auf schmaleren Viewports darf die Metazeile wieder umbrechen, damit Mobile nicht kaputtläuft.
+
+
+## V14 Impressum und Datenschutz
+
+Ergänzt wurden:
+
+- `/impressum/`
+- `/datenschutz/`
+- globaler Footer mit Impressum, Datenschutz und Kontakt
+- Datenschutz-Link in den Subscribe-/Waitlist-Hinweisen
+
+Die Newsletter-/Benachrichtigungsfelder bleiben weiterhin deaktiviert und speichern keine E-Mail-Adressen.

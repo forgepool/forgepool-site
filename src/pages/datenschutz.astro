@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+---
+<BaseLayout
+  title="Datenschutzerklärung | ForgePool"
+  description="Datenschutzerklärung für die ForgePool Website."
+  active="kontakt"
+  background="desert"
+  pageClass="legal-page"
+>
+  <Fragment slot="header"><Header active="kontakt" /></Fragment>
+
+  <section class="legal-content">
+    <p class="eyebrow">Datenschutz</p>
+    <h1>Datenschutzerklärung</h1>
+
+    <div class="legal-card">
+      <h2>1. Verantwortlicher</h2>
+      <p>
+        Verantwortlich für die Datenverarbeitung auf dieser Website ist:
+      </p>
+      <p>
+        Sebastian Moy<br />
+        An der Gärtnerei 19<br />
+        39179 Barleben<br />
+        Deutschland<br />
+        E-Mail: <a href="mailto:sebastian.moy@t-online.de">sebastian.moy@t-online.de</a>
+      </p>
+
+      <h2>2. Allgemeine Hinweise</h2>
+      <p>
+        Diese Website informiert über den Aufbau des Cardano Stake-Pool-Projekts ForgePool.
+        Personenbezogene Daten werden nur verarbeitet, soweit dies für den Betrieb der Website,
+        zur technischen Bereitstellung oder zur Kontaktaufnahme erforderlich ist.
+      </p>
+
+      <h2>3. Hosting und technische Bereitstellung</h2>
+      <p>
+        Die Website wird als statische Website über Microsoft Azure Static Web Apps bereitgestellt.
+        Beim Aufruf der Website können technisch notwendige Zugriffsdaten verarbeitet werden, zum Beispiel:
+      </p>
+      <ul>
+        <li>IP-Adresse</li>
+        <li>Datum und Uhrzeit des Zugriffs</li>
+        <li>aufgerufene Seite oder Datei</li>
+        <li>übertragene Datenmenge</li>
+        <li>Browsertyp und Browserversion</li>
+        <li>Betriebssystem</li>
+        <li>Referrer-URL, sofern übermittelt</li>
+      </ul>
+      <p>
+        Die Verarbeitung erfolgt, um die Website zuverlässig, sicher und fehlerfrei bereitzustellen.
+        Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt im sicheren
+        und stabilen Betrieb der Website.
+      </p>
+
+      <h2>4. Kontaktaufnahme per E-Mail</h2>
+      <p>
+        Wenn du per E-Mail Kontakt aufnimmst, werden die von dir übermittelten Daten verarbeitet,
+        um deine Anfrage zu beantworten. Dazu können insbesondere deine E-Mail-Adresse, dein Name
+        und der Inhalt deiner Nachricht gehören.
+      </p>
+      <p>
+        Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Sofern deine Anfrage auf eine spätere
+        vertragliche oder vorvertragliche Kommunikation gerichtet ist, kann zusätzlich Art. 6 Abs. 1 lit. b
+        DSGVO einschlägig sein.
+      </p>
+
+      <h2>5. Newsletter- und Benachrichtigungsfelder</h2>
+      <p>
+        Die auf der Website sichtbaren Newsletter- und Benachrichtigungsfelder sind derzeit nicht aktiv.
+        Beim Klick auf den Button wird lediglich ein Hinweis angezeigt. Es werden darüber aktuell keine
+        E-Mail-Adressen gespeichert, kein Newsletter versendet und kein Double-Opt-in-Prozess gestartet.
+      </p>
+      <p>
+        Sobald eine echte Benachrichtigungsliste oder ein Newsletter aktiviert wird, wird diese
+        Datenschutzerklärung entsprechend erweitert.
+      </p>
+
+      <h2>6. Cookies, Analytics und externe Inhalte</h2>
+      <p>
+        Nach aktuellem Stand setzt diese Website keine Analyse- oder Marketing-Cookies ein.
+        Es werden keine Webanalyse-Dienste wie Google Analytics verwendet und keine externen Inhalte
+        wie YouTube-Videos, Karten oder Social-Media-Widgets eingebettet.
+      </p>
+
+      <h2>7. GitHub und Deployment</h2>
+      <p>
+        Der Quellcode der Website wird über GitHub verwaltet und per GitHub Actions auf Azure bereitgestellt.
+        Für normale Besucher der Website erfolgt dadurch keine direkte Datenübertragung an GitHub durch
+        den bloßen Seitenaufruf.
+      </p>
+
+      <h2>8. Speicherdauer</h2>
+      <p>
+        Personenbezogene Daten werden nur so lange gespeichert, wie dies für den jeweiligen Zweck
+        erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen.
+      </p>
+
+      <h2>9. Deine Rechte</h2>
+      <p>
+        Du hast im Rahmen der gesetzlichen Voraussetzungen das Recht auf Auskunft, Berichtigung,
+        Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen die
+        Verarbeitung personenbezogener Daten.
+      </p>
+
+      <h2>10. Beschwerderecht</h2>
+      <p>
+        Du hast das Recht, dich bei einer Datenschutzaufsichtsbehörde zu beschweren, wenn du der Ansicht bist,
+        dass die Verarbeitung deiner personenbezogenen Daten gegen Datenschutzrecht verstößt.
+      </p>
+
+      <h2>11. Stand</h2>
+      <p>
+        Stand dieser Datenschutzerklärung: Juni 2026
+      </p>
+    </div>
+  </section>
+</BaseLayout>
