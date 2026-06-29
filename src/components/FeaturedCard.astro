@@ -1,10 +1,26 @@
 ---
-const { eyebrow, title, text } = Astro.props;
+const {
+  eyebrow,
+  title,
+  text,
+  href = "#",
+  image,
+  isNew = false,
+} = Astro.props;
+
+const style = image ? `--feature-image: url('${image}')` : undefined;
 ---
-<article class="feature-card">
+<a
+  class:list={["feature-card", { "has-cover": Boolean(image), "is-new": isNew }]}
+  href={href}
+  aria-label={`Artikel öffnen: ${title}`}
+  style={style}
+>
+  {isNew && <span class="feature-new-badge">Neu</span>}
+
   <div class="feature-card-content">
-    <p>{eyebrow}</p>
+    <p class="feature-card-meta">{eyebrow}</p>
     <h3>{title}</h3>
     <span>{text}</span>
   </div>
-</article>
+</a>

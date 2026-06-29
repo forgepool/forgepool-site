@@ -289,8 +289,8 @@ h1, h2, h3, p { margin-top: 0; }
   border-radius: 6px;
   overflow: hidden;
   background-image:
-    linear-gradient(90deg, rgba(36,59,58,.92) 0%, rgba(36,59,58,.76) 43%, rgba(36,59,58,.10) 100%),
-    url('/images/backgrounds/card-cube.png');
+    linear-gradient(90deg, rgba(36,59,58,.94) 0%, rgba(36,59,58,.78) 42%, rgba(36,59,58,.18) 100%),
+    var(--feature-image, url('/images/backgrounds/card-cube.png'));
   background-size: cover;
   background-position: 0% 36%;
   color: var(--color-bg-sand);
@@ -1248,5 +1248,421 @@ h1, h2, h3, p { margin-top: 0; }
     z-index: 2;
     justify-self: center;
     margin-left: 0;
+  }
+}
+
+
+/* Blog article pages */
+.blog-post-page {
+  min-height: 100svh;
+  overflow: auto;
+}
+
+.blog-post {
+  width: min(100%, 900px);
+  margin: clamp(2rem, 5vh, 4rem) auto 0;
+  padding: clamp(1.1rem, 2.1vw, 2rem);
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius-sm);
+  background: rgba(244, 231, 200, .82);
+  backdrop-filter: blur(9px);
+  box-shadow: var(--shadow-soft);
+}
+
+.back-link {
+  display: inline-flex;
+  margin-bottom: 1.4rem;
+  color: rgba(36, 59, 58, .76);
+  font-size: .92rem;
+  font-weight: 600;
+}
+
+.blog-post h1 {
+  max-width: 760px;
+  margin-bottom: .8rem;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+
+.blog-post > time {
+  display: inline-flex;
+  margin: .25rem 0 1.4rem;
+  color: rgba(36, 59, 58, .62);
+  font-size: .92rem;
+  font-weight: 600;
+}
+
+.blog-post-cover {
+  margin: .6rem 0 1.6rem;
+}
+
+.blog-post-cover img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border: 1px solid rgba(36, 59, 58, .22);
+  border-radius: var(--radius-sm);
+}
+
+.blog-post-cover figcaption {
+  margin-top: .5rem;
+  color: rgba(36, 59, 58, .62);
+  font-size: .82rem;
+}
+
+.blog-post-content {
+  color: var(--color-petrol);
+  font-size: clamp(.98rem, 1.05vw, 1.12rem);
+  line-height: 1.65;
+}
+
+.blog-post-content h2 {
+  margin: 2rem 0 .7rem;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  line-height: 1.08;
+  letter-spacing: -.035em;
+}
+
+.blog-post-content h3 {
+  margin: 1.5rem 0 .5rem;
+  font-size: 1.18rem;
+}
+
+.blog-post-content p,
+.blog-post-content ul,
+.blog-post-content ol,
+.blog-post-content blockquote {
+  margin-bottom: 1.1rem;
+}
+
+.blog-post-content ul,
+.blog-post-content ol {
+  padding-left: 1.2rem;
+}
+
+.blog-post-content li + li {
+  margin-top: .35rem;
+}
+
+.blog-post-content blockquote {
+  margin-left: 0;
+  padding: .85rem 1rem;
+  border-left: 3px solid var(--color-blue);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: rgba(255, 250, 236, .44);
+}
+
+.blog-post-content img {
+  width: 100%;
+  height: auto;
+  margin: 1.25rem 0;
+  border: 1px solid rgba(36, 59, 58, .18);
+  border-radius: var(--radius-sm);
+}
+
+.blog-post-content code {
+  padding: .12rem .32rem;
+  border-radius: 4px;
+  background: rgba(36, 59, 58, .12);
+}
+
+.blog-post-content pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(36, 59, 58, .92);
+  color: var(--color-bg-sand);
+}
+
+.blog-post-content pre code {
+  padding: 0;
+  background: transparent;
+}
+
+@media (max-width: 780px) {
+  .blog-post {
+    margin-top: 1.2rem;
+    padding: 1rem;
+  }
+
+  .blog-post h1 {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+}
+
+
+/* Featured article covers and "Neu" markers */
+.feature-card.has-cover {
+  background-position: center;
+}
+
+.feature-card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .42rem;
+}
+
+.feature-card-meta span:first-child {
+  display: inline;
+}
+
+.new-badge,
+.tag-new {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  margin-left: .45rem;
+  padding: .2rem .46rem;
+  border: 1px solid rgba(244, 231, 200, .44);
+  border-radius: 999px;
+  background: rgba(157, 189, 216, .52);
+  color: var(--color-bg-sand);
+  font-size: .66rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+.feature-card .new-badge {
+  display: inline-flex;
+  color: var(--color-bg-sand);
+}
+
+.archive-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .42rem;
+  justify-self: start;
+}
+
+.archive-tags .tag {
+  margin: 0;
+}
+
+.archive-tags .tag-new {
+  border-color: rgba(36, 59, 58, .20);
+  background: rgba(157, 189, 216, .45);
+  color: var(--color-petrol);
+}
+
+
+@media (max-width: 780px) {
+  .archive-row .archive-tags {
+    grid-column: 1 / 2;
+  }
+
+  .archive-row .archive-tags .tag {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .archive-row .archive-tags {
+    grid-column: auto;
+  }
+}
+
+
+/* V11: stable "Neu" placement */
+.feature-card {
+  position: relative;
+}
+
+.feature-new-badge {
+  position: absolute;
+  top: clamp(.82rem, 1.25vw, 1.15rem);
+  right: clamp(.82rem, 1.25vw, 1.15rem);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  padding: .26rem .56rem;
+  border: 1px solid rgba(244, 231, 200, .48);
+  border-radius: 999px;
+  background: rgba(157, 189, 216, .58);
+  color: var(--color-bg-sand);
+  font-size: .68rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+  box-shadow: 0 6px 18px rgba(36, 59, 58, .18);
+}
+
+.feature-card-meta {
+  display: block;
+  max-width: calc(100% - 4.7rem);
+  margin-bottom: 1rem;
+}
+
+.feature-card .new-badge {
+  display: none;
+}
+
+.archive-title {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .46rem;
+}
+
+.archive-title .tag-new {
+  flex: 0 0 auto;
+  margin: 0;
+  border-color: rgba(36, 59, 58, .20);
+  background: rgba(157, 189, 216, .45);
+  color: var(--color-petrol);
+  font-size: .68rem;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+.archive-tags {
+  display: contents;
+}
+
+@media (max-width: 780px) {
+  .feature-card-meta {
+    max-width: calc(100% - 4.2rem);
+  }
+
+  .archive-title {
+    grid-column: 2 / 3;
+  }
+
+  .archive-title .tag-new {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .feature-new-badge {
+    top: .85rem;
+    right: .85rem;
+  }
+
+  .feature-card-meta {
+    max-width: calc(100% - 4rem);
+  }
+
+  .archive-title {
+    grid-column: auto;
+  }
+}
+
+
+/* V12: subscribe placeholder layout */
+.subscribe-note {
+  width: 100%;
+  margin: .7rem 0 0;
+  color: rgba(36, 59, 58, .72);
+  font-size: .86rem;
+  line-height: 1.34;
+}
+
+.waitlist-card > .subscribe-note {
+  display: block;
+  max-width: 46rem;
+}
+
+.newsletter-bar > .subscribe-note {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: .15rem 0 0;
+  padding-top: .25rem;
+  color: rgba(36, 59, 58, .72);
+}
+
+.newsletter-bar .subscribe-inline {
+  display: contents;
+}
+
+.waitlist-form.is-placeholder,
+.subscribe-inline.is-placeholder {
+  margin-top: 1.05rem;
+}
+
+.newsletter-bar .subscribe-inline.is-placeholder {
+  margin-top: 0;
+}
+
+.waitlist-form.is-placeholder button,
+.subscribe-inline.is-placeholder button {
+  cursor: pointer;
+}
+
+@media (max-width: 980px) {
+  .newsletter-bar {
+    align-items: stretch;
+  }
+
+  .newsletter-bar .subscribe-inline {
+    display: flex;
+    gap: .8rem;
+  }
+
+  .newsletter-bar > .subscribe-note {
+    grid-column: auto;
+    margin-top: .15rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .waitlist-form.is-placeholder,
+  .subscribe-inline.is-placeholder,
+  .newsletter-bar .subscribe-inline {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .waitlist-card > .subscribe-note,
+  .newsletter-bar > .subscribe-note {
+    font-size: .8rem;
+  }
+}
+
+
+/* V13: mobile/desktop blog scroll + stable featured meta line */
+.feature-card-meta {
+  display: block;
+  max-width: calc(100% - 7rem);
+  margin-bottom: 1rem;
+  white-space: nowrap;
+}
+
+/* Blog pages can be taller than the viewport. The previous desktop calibration intentionally hid overflow for the hero layout. */
+.site-page.blog-page {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.blog-page .blog-content {
+  height: auto;
+  min-height: calc(100svh - clamp(42px, 5.3vh, 54px) - clamp(1.4rem, 2.7vh, 2.4rem));
+  overflow: visible;
+  padding-bottom: clamp(1.2rem, 3vh, 2.4rem);
+}
+
+/* Keep the placeholder message inside the newsletter card and below the controls. */
+.newsletter-bar > .subscribe-note {
+  grid-column: 1 / -1;
+  position: static;
+  display: block;
+  max-width: 100%;
+  margin: .15rem 0 0;
+  padding-top: .25rem;
+}
+
+/* The meta line should stay in one line on desktop, but may wrap on narrower screens. */
+@media (max-width: 980px) {
+  .feature-card-meta {
+    max-width: calc(100% - 6.2rem);
+    white-space: normal;
   }
 }

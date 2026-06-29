@@ -1,9 +1,38 @@
 ---
 import Icon from './Icon.astro';
+
 const { button = 'Benachrichtigen lassen' } = Astro.props;
+const inputId = 'subscribe-email';
+const noteId = `${inputId}-note`;
 ---
-<form class="subscribe-inline" action="mailto:kontakt@forgepool.de" method="post" enctype="text/plain">
-  <label class="sr-only" for="subscribe-email">E-Mail-Adresse</label>
-  <input id="subscribe-email" name="email" type="email" placeholder="E-Mail-Adresse" autocomplete="email" />
-  <button type="submit"><span class="button-small-icon"><Icon name="bell" /></span>{button}</button>
+
+<form class="subscribe-inline is-placeholder" data-subscribe-placeholder>
+  <label class="sr-only" for={inputId}>E-Mail-Adresse</label>
+  <input
+    id={inputId}
+    name="email"
+    type="email"
+    placeholder="E-Mail-Adresse"
+    autocomplete="email"
+    aria-describedby={noteId}
+  />
+  <button type="button" data-subscribe-button>
+    <span class="button-small-icon"><Icon name="bell" /></span>{button}
+  </button>
 </form>
+<p id={noteId} class="subscribe-note" data-subscribe-note hidden>
+  Die Benachrichtigungsliste wird aktuell vorbereitet. Es wird noch keine E-Mail-Adresse gespeichert.
+</p>
+
+<script>
+  document.querySelectorAll('[data-subscribe-placeholder]').forEach((form) => {
+    const button = form.querySelector('[data-subscribe-button]');
+    const note = form.nextElementSibling?.matches('[data-subscribe-note]')
+      ? form.nextElementSibling
+      : form.querySelector('[data-subscribe-note]');
+
+    button?.addEventListener('click', () => {
+      note?.removeAttribute('hidden');
+    });
+  });
+</script>

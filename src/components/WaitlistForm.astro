@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+
 const {
   title = 'Kein Update verpassen',
   label = 'Launch-Benachrichtigung',
@@ -7,16 +8,46 @@ const {
   button = 'Benachrichtigen lassen',
   compact = false,
 } = Astro.props;
+
 const inputId = `email-${title.replaceAll(' ', '-').toLowerCase()}`;
+const noteId = `${inputId}-note`;
 ---
-<section class:list={['waitlist-card', { compact }]}> 
+
+<section class:list={['waitlist-card', { compact }]}>
   <p class="card-label"><span class="label-dot" aria-hidden="true"></span>{label}</p>
   <h2>{title}</h2>
   <p>{body}</p>
-  <form class="waitlist-form" action="mailto:kontakt@forgepool.de" method="post" enctype="text/plain">
+
+  <form class="waitlist-form is-placeholder" data-subscribe-placeholder>
     <label class="sr-only" for={inputId}>E-Mail-Adresse</label>
-    <input id={inputId} name="email" type="email" placeholder="E-Mail-Adresse" autocomplete="email" />
-    <button type="submit"><span class="button-small-icon"><Icon name="bell" /></span>{button}</button>
+    <input
+      id={inputId}
+      name="email"
+      type="email"
+      placeholder="E-Mail-Adresse"
+      autocomplete="email"
+      aria-describedby={noteId}
+    />
+    <button type="button" data-subscribe-button>
+      <span class="button-small-icon"><Icon name="bell" /></span>{button}
+    </button>
   </form>
+
+  <p id={noteId} class="form-note subscribe-note" data-subscribe-note hidden>
+    Die Benachrichtigungsliste wird aktuell vorbereitet. Es wird noch keine E-Mail-Adresse gespeichert.
+  </p>
   <p class="form-note">Nur wichtige Launch-Updates. Kein Spam.</p>
 </section>
+
+<script>
+  document.querySelectorAll('[data-subscribe-placeholder]').forEach((form) => {
+    const button = form.querySelector('[data-subscribe-button]');
+    const note = form.nextElementSibling?.matches('[data-subscribe-note]')
+      ? form.nextElementSibling
+      : form.querySelector('[data-subscribe-note]');
+
+    button?.addEventListener('click', () => {
+      note?.removeAttribute('hidden');
+    });
+  });
+</script>

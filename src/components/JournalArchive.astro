@@ -1,11 +1,24 @@
 ---
-const posts = [
-  { date: '6. Mai 2026', title: 'Epoch 518 - Rückblick & Ausblick', tag: 'Pool Updates', tagClass: 'pool', teaser: 'Fortschritt, Betrieb und die nächsten Schritte.' },
-  { date: '4. Mai 2026', title: 'Infrastruktur-Update - Mai 2026', tag: 'Infrastruktur', tagClass: 'infra', teaser: 'Monitoring, Backups und kleine Verbesserungen im Setup' },
-  { date: '1. Mai 2026', title: 'Warum ich ForgePool betreibe', tag: 'Persönlicher Blog', tagClass: 'personal', teaser: 'Motivation, Haltung und langfristiger Anspruch hinter ForgePool' },
-  { date: '28. April 2026', title: 'Meilenstein 1 abgeschlossen', tag: 'Projekt', tagClass: 'project', teaser: 'Auswertung des ersten Meilensteins' },
-  { date: '25. April 2026', title: 'Aufbau der Teststellung', tag: 'Projekt', tagClass: 'project', teaser: 'Architekturentscheidungen und Aufbau der Infrastruktur' },
-];
+const { posts = [], isNewPost } = Astro.props;
+
+const tagClassByCategory = {
+  "Pool Updates": "pool",
+  "Infrastruktur": "infra",
+  "Persönlicher Blog": "personal",
+  "Projekt": "project",
+  "FinOps": "infra",
+  "Security": "project",
+  "Azure": "infra",
+  "Cardano": "pool",
+};
+
+function formatDate(date) {
+  return date.toLocaleDateString("de-DE", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 ---
 <section class="archive-panel">
   <div class="archive-head">
@@ -17,11 +30,14 @@ const posts = [
   </div>
   <div class="archive-list">
     {posts.map((post) => (
-      <a href="#" class="archive-row">
-        <time datetime="2026-05-06">{post.date}</time>
-        <strong>{post.title}</strong>
-        <span class={`tag tag-${post.tagClass}`}>{post.tag}</span>
-        <p>{post.teaser}</p>
+      <a href={`/blog/${post.slug}/`} class="archive-row">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        <strong class="archive-title">
+          <span>{post.data.title}</span>
+          {isNewPost?.(post.data.date) && <span class="tag tag-new">Neu</span>}
+        </strong>
+        <span class={`tag tag-${tagClassByCategory[post.data.category] ?? "project"}`}>{post.data.category}</span>
+        <p>{post.data.description}</p>
         <span class="archive-arrow" aria-hidden="true">→</span>
       </a>
     ))}
