@@ -1,10 +1,10 @@
 ---
 title: "Pre-Launch: Warum Build-in-Public?"
-description: "Warum ForgePool bereits vor dem produktiven Betrieb sichtbar aufgebaut und dokumentiert wird."
-date: "2026-06-18"
-category: "Persönlicher Blog"
-featured: true
-draft: false
+description: Warum ForgePool bereits vor dem produktiven Betrieb sichtbar aufgebaut und dokumentiert wird.
+date: 2026-06-18
+category: Persönlicher Blog
+featured: false
+draft: true
 ---
 
 # Pre-Launch: Warum Build-in-Public?

@@ -1,10 +1,10 @@
 ---
-title: "Meilenstein 1 abgeschlossen"
-description: "Testumgebung, erste Erkenntnisse und Architekturentscheidungen aus dem ForgePool-Projekt."
-date: "2026-06-24"
-category: "Projekt"
-featured: true
-draft: false
+title: Meilenstein 1 abgeschlossen
+description: Testumgebung, erste Erkenntnisse und Architekturentscheidungen aus dem ForgePool-Projekt.
+date: 2026-06-24
+category: Projekt
+featured: false
+draft: true
 ---
 
 # Meilenstein 1 abgeschlossen
