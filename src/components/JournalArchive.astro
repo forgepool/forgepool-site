@@ -1,16 +1,7 @@
 ---
-const { posts = [], isNewPost } = Astro.props;
+import { getBlogLabel } from "../config/blogLabels";
 
-const tagClassByCategory = {
-  "Pool Updates": "pool",
-  "Infrastruktur": "infra",
-  "Persönlicher Blog": "personal",
-  "Projekt": "project",
-  "FinOps": "infra",
-  "Security": "project",
-  "Azure": "infra",
-  "Cardano": "pool",
-};
+const { posts = [], isNewPost } = Astro.props;
 
 function formatDate(date) {
   return date.toLocaleDateString("de-DE", {
@@ -20,26 +11,56 @@ function formatDate(date) {
   });
 }
 ---
+
 <section class="archive-panel">
   <div class="archive-head">
     <div>
       <h2>Journal Archiv</h2>
-      <p>Alle bisherigen Notizen, Architekturentscheidungen und Fortschritte im Aufbau von ForgePool</p>
+
+      <p>
+        Alle bisherigen Notizen, Architekturentscheidungen und Fortschritte
+        im Aufbau von ForgePool
+      </p>
     </div>
-    <a href="/blog/" class="archive-all">Alle Beiträge &gt;</a>
+
+    <a href="/blog/" class="archive-all">
+      Alle Beiträge &gt;
+    </a>
   </div>
+
   <div class="archive-list">
-    {posts.map((post) => (
-      <a href={`/blog/${post.slug}/`} class="archive-row">
-        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
-        <strong class="archive-title">
-          <span>{post.data.title}</span>
-          {isNewPost?.(post.data.date) && <span class="tag tag-new">Neu</span>}
-        </strong>
-        <span class={`tag tag-${tagClassByCategory[post.data.category] ?? "project"}`}>{post.data.category}</span>
-        <p>{post.data.description}</p>
-        <span class="archive-arrow" aria-hidden="true">→</span>
-      </a>
-    ))}
+    {
+      posts.map((post) => {
+        const label = getBlogLabel(post.data.labelId);
+
+        return (
+          <a href={`/blog/${post.slug}/`} class="archive-row">
+            <time datetime={post.data.date.toISOString()}>
+              {formatDate(post.data.date)}
+            </time>
+
+            <strong class="archive-title">
+              <span>{post.data.title}</span>
+
+              {isNewPost?.(post.data.date) && (
+                <span class="tag tag-new">
+                  Neu
+                </span>
+              )}
+            </strong>
+
+            <span class={`tag tag-${label.tagClass}`}>
+              {label.name}
+            </span>
+
+            <p>{post.data.description}</p>
+
+            <span class="archive-arrow" aria-hidden="true">
+              →
+            </span>
+          </a>
+        );
+      })
+    }
   </div>
 </section>

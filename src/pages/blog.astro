@@ -1,56 +1,128 @@
 ---
 import { getCollection } from "astro:content";
+
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import FeaturedCard from "../components/FeaturedCard.astro";
 import JournalArchive from "../components/JournalArchive.astro";
 import SubscribeForm from "../components/SubscribeForm.astro";
 
+import { getBlogLabel } from "../config/blogLabels";
+
 const NEW_DAYS = 14;
 
-const posts = (await getCollection("blog", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const posts = (
+  await getCollection(
+    "blog",
+    ({ data }) => !data.draft,
+  )
+).sort(
+  (a, b) =>
+    b.data.date.valueOf() -
+    a.data.date.valueOf(),
+);
 
-const featuredPosts = posts.filter((post) => post.data.featured).slice(0, 3);
-const fallbackFeaturedPosts = featuredPosts.length > 0 ? featuredPosts : posts.slice(0, 3);
+const featuredPosts = posts
+  .filter(
+    (post) =>
+      post.data.featured,
+  )
+  .slice(0, 3);
+
+const fallbackFeaturedPosts =
+  featuredPosts.length > 0
+    ? featuredPosts
+    : posts.slice(0, 3);
 
 function formatFeaturedDate(date) {
-  return date.toLocaleDateString("de-DE", {
-    day: "numeric",
-    month: "short",
-  });
+  return date.toLocaleDateString(
+    "de-DE",
+    {
+      day: "numeric",
+      month: "short",
+    },
+  );
 }
 
 function isNewPost(date) {
-  const diffInMs = Date.now() - date.valueOf();
-  const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+  const diffInMs =
+    Date.now() -
+    date.valueOf();
 
-  return diffInDays >= 0 && diffInDays <= NEW_DAYS;
+  const diffInDays =
+    diffInMs /
+    (1000 * 60 * 60 * 24);
+
+  return (
+    diffInDays >= 0 &&
+    diffInDays <= NEW_DAYS
+  );
 }
 ---
-<BaseLayout title="ForgePool Engineering Journal" active="blog" background="desert" pageClass="blog-page">
-  <Fragment slot="header"><Header active="blog" /></Fragment>
+
+<BaseLayout
+  title="ForgePool Engineering Journal"
+  active="blog"
+  background="desert"
+  pageClass="blog-page"
+>
+  <Fragment slot="header">
+    <Header active="blog" />
+  </Fragment>
+
   <section class="page-section blog-content">
-    <h1 class="section-title">Aktuelle Updates</h1>
+    <h1 class="section-title">
+      Aktuelle Updates
+    </h1>
+
     <div class="feature-grid">
-      {fallbackFeaturedPosts.map((post) => (
-        <FeaturedCard
-          href={`/blog/${post.slug}/`}
-          eyebrow={`${post.data.category} / ${formatFeaturedDate(post.data.date)}`}
-          title={post.data.title}
-          text={post.data.description}
-          image={post.data.cover}
-          isNew={isNewPost(post.data.date)}
-        />
-      ))}
+      {
+        fallbackFeaturedPosts.map(
+          (post) => {
+            const label =
+              getBlogLabel(
+                post.data.labelId,
+              );
+
+            return (
+              <FeaturedCard
+                href={`/blog/${post.slug}/`}
+                eyebrow={`${label.name} / ${formatFeaturedDate(
+                  post.data.date,
+                )}`}
+                title={post.data.title}
+                text={post.data.description}
+                image={post.data.cover}
+                isNew={isNewPost(
+                  post.data.date,
+                )}
+              />
+            );
+          },
+        )
+      }
     </div>
-    <JournalArchive posts={posts} isNewPost={isNewPost} />
+
+    <JournalArchive
+      posts={posts}
+      isNewPost={isNewPost}
+    />
+
     <div class="waitlist-card newsletter-bar">
       <div>
-        <h2>keine Updates Verpassen</h2>
-        <p>Erhalte eine Benachrichtigung, sobald ein neuer Artikel online ist.</p>
+        <h2>
+          keine Updates Verpassen
+        </h2>
+
+        <p>
+          Erhalte eine Benachrichtigung,
+          sobald ein neuer Artikel online ist.
+        </p>
       </div>
-      <SubscribeForm button="Benachrichtigen lassen" />
+
+      <SubscribeForm
+        button="Benachrichtigen lassen"
+      />
     </div>
   </section>
 </BaseLayout>

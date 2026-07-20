@@ -1,26 +1,54 @@
 ---
 import { getCollection } from "astro:content";
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 
-export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
+import { getBlogLabel } from "../../config/blogLabels";
 
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+export async function getStaticPaths() {
+  const posts =
+    await getCollection(
+      "blog",
+      ({ data }) =>
+        !data.draft,
+    );
+
+  return posts.map(
+    (post) => ({
+      params: {
+        slug: post.slug,
+      },
+
+      props: {
+        post,
+      },
+    }),
+  );
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const { post } =
+  Astro.props;
 
-const publishedDate = post.data.date.toLocaleDateString("de-DE", {
-  day: "2-digit",
-  month: "long",
-  year: "numeric",
-});
+const { Content } =
+  await post.render();
+
+const label =
+  getBlogLabel(
+    post.data.labelId,
+  );
+
+const publishedDate =
+  post.data.date.toLocaleDateString(
+    "de-DE",
+    {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    },
+  );
 ---
+
 <BaseLayout
   title={`${post.data.title} | ForgePool`}
   description={post.data.description}
@@ -28,22 +56,53 @@ const publishedDate = post.data.date.toLocaleDateString("de-DE", {
   background="desert"
   pageClass="blog-post-page"
 >
-  <Fragment slot="header"><Header active="blog" /></Fragment>
+  <Fragment slot="header">
+    <Header active="blog" />
+  </Fragment>
 
   <article class="blog-post">
-    <a href="/blog/" class="back-link">← Zurück zum Journal</a>
+    <a
+      href="/blog/"
+      class="back-link"
+    >
+      ← Zurück zum Journal
+    </a>
 
-    <p class="eyebrow">{post.data.category}</p>
-    <h1>{post.data.title}</h1>
-    <p class="lead">{post.data.description}</p>
-    <time datetime={post.data.date.toISOString()}>{publishedDate}</time>
+    <p class="eyebrow">
+      {label.name}
+    </p>
 
-    {post.data.cover && (
-      <figure class="blog-post-cover">
-        <img src={post.data.cover} alt={post.data.coverAlt ?? ""} loading="eager" />
-        {post.data.coverAlt && <figcaption>{post.data.coverAlt}</figcaption>}
-      </figure>
-    )}
+    <h1>
+      {post.data.title}
+    </h1>
+
+    <p class="lead">
+      {post.data.description}
+    </p>
+
+    <time
+      datetime={post.data.date.toISOString()}
+    >
+      {publishedDate}
+    </time>
+
+    {
+      post.data.cover && (
+        <figure class="blog-post-cover">
+          <img
+            src={post.data.cover}
+            alt={post.data.coverAlt ?? ""}
+            loading="eager"
+          />
+
+          {post.data.coverAlt && (
+            <figcaption>
+              {post.data.coverAlt}
+            </figcaption>
+          )}
+        </figure>
+      )
+    }
 
     <div class="blog-post-content">
       <Content />
