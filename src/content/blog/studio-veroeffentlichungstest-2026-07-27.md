@@ -3,6 +3,7 @@ articleId: "56bb999e-c7d9-44e0-bda8-b6a97505ea59"
 title: "ForgePool Studio Veröffentlichungstest"
 description: "Technischer Test des neuen Veröffentlichungsworkflows von ForgePool Studio."
 date: 2026-07-16
+publishedAt: 2026-07-27T18:54:08.481Z
 labelId: "e2edcb2e-13e2-44a8-b964-4161d1fb99f4"
 featured: false
 draft: false
