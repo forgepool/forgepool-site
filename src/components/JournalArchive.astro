@@ -1,7 +1,8 @@
 ---
 import { getBlogLabel } from "../config/blogLabels";
+import NewPublicationBadge from "./NewPublicationBadge.astro";
 
-const { posts = [], isNewPost } = Astro.props;
+const { posts = [] } = Astro.props;
 
 function formatDate(date) {
   return date.toLocaleDateString("de-DE", {
@@ -42,11 +43,10 @@ function formatDate(date) {
             <strong class="archive-title">
               <span>{post.data.title}</span>
 
-              {isNewPost?.(post.data.date) && (
-                <span class="tag tag-new">
-                  Neu
-                </span>
-              )}
+              <NewPublicationBadge
+                publishedAt={post.data.publishedAt}
+                class="tag tag-new"
+              />
             </strong>
 
             <span class={`tag tag-${label.tagClass}`}>

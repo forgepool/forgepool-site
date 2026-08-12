@@ -1,22 +1,27 @@
 ---
+import NewPublicationBadge from "./NewPublicationBadge.astro";
+
 const {
   eyebrow,
   title,
   text,
   href = "#",
   image,
-  isNew = false,
+  publishedAt,
 } = Astro.props;
 
 const style = image ? `--feature-image: url('${image}')` : undefined;
 ---
 <a
-  class:list={["feature-card", { "has-cover": Boolean(image), "is-new": isNew }]}
+  class:list={["feature-card", { "has-cover": Boolean(image) }]}
   href={href}
   aria-label={`Artikel öffnen: ${title}`}
   style={style}
 >
-  {isNew && <span class="feature-new-badge">Neu</span>}
+  <NewPublicationBadge
+    publishedAt={publishedAt}
+    class="feature-new-badge"
+  />
 
   <div class="feature-card-content">
     <p class="feature-card-meta">{eyebrow}</p>

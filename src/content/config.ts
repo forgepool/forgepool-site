@@ -12,6 +12,8 @@ const blog = defineCollection({
 
     date: z.coerce.date(),
 
+    publishedAt: z.coerce.date().optional(),
+
     labelId: z.string().uuid(),
 
     featured: z.boolean().default(false),

@@ -1495,6 +1495,11 @@ h1, h2, h3, p { margin-top: 0; }
   box-shadow: 0 6px 18px rgba(36, 59, 58, .18);
 }
 
+.feature-new-badge[hidden],
+.archive-title .tag-new[hidden] {
+  display: none !important;
+}
+
 .feature-card-meta {
   display: block;
   max-width: calc(100% - 4.7rem);
