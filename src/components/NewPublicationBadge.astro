@@ -1,0 +1,33 @@
+---
+import {
+  serializePublishedAt,
+} from "../lib/publicationPresentation.mjs";
+
+const {
+  publishedAt,
+  class: className,
+} = Astro.props;
+
+const serializedPublishedAt =
+  serializePublishedAt(
+    publishedAt,
+  );
+---
+
+<span
+  class={className}
+  data-new-publication-badge
+  data-published-at={serializedPublishedAt}
+  hidden
+  aria-hidden="true"
+>
+  Neu
+</span>
+
+<script>
+  import {
+    initializeNewPublicationBadges,
+  } from "../lib/publicationPresentation.mjs";
+
+  initializeNewPublicationBadges();
+</script>
