@@ -5,7 +5,7 @@ description: "Technischer Test des neuen Veröffentlichungsworkflows von ForgePo
 date: 2026-07-16
 publishedAt: 2026-07-27T18:54:08.481Z
 labelId: "e2edcb2e-13e2-44a8-b964-4161d1fb99f4"
-featured: false
+featured: true
 draft: false
 cover: "/images/blog/bibliothek/2016-07-16-artikel-1-dd1d41aa.png"
 coverAlt: "Würfel in der Wüste - der Wind weht den Sand von der Oberfläche"
