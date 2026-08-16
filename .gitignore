@@ -4,3 +4,9 @@ dist/
 .env
 .env.*
 .DS_Store
+.obsidian/
+.vscode/
+.idea/
+*.log
+coverage/
+Thumbs.db
