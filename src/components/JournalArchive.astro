@@ -35,7 +35,7 @@ function formatDate(date) {
         const label = getBlogLabel(post.data.labelId);
 
         return (
-          <a href={`/blog/${post.slug}/`} class="archive-row">
+          <a href={`/blog/${post.id}/`} class="archive-row">
             <time datetime={post.data.date.toISOString()}>
               {formatDate(post.data.date)}
             </time>
