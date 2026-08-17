@@ -126,8 +126,8 @@ Markdown oder Frontmatter über öffentliche Pfade wie
 
 ## Lokale Entwicklung
 
-Die CI verwendet Node.js 22. Für eine reproduzierbare lokale Installation und
-die im Repository vorhandenen Skripte:
+Astro 7 benötigt Node.js 22.12.0 oder neuer. Für eine reproduzierbare lokale
+Installation und die im Repository vorhandenen Skripte:
 
 ```powershell
 npm ci
