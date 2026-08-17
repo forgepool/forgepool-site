@@ -1,142 +1,192 @@
 # ForgePool Site
 
-Astro-basierte Pre-Launch Website für ForgePool.
+## ForgePool
+
+ForgePool ist ein Build-in-Public-Projekt rund um Cardano, Cloud und
+Infrastructure Engineering. Dieses Repository enthält die öffentliche,
+statisch erzeugte Website [forgepool.de](https://forgepool.de).
+
+Die Website basiert auf [Astro](https://astro.build/) und wird über Azure
+Static Web Apps bereitgestellt. Der Quellcode des Repositories ist öffentlich
+einsehbar.
+
+## Repository purpose
+
+Dieses Repository enthält:
+
+- die öffentliche Website und ihre Astro-Komponenten,
+- Journal- und Blog-Inhalte,
+- öffentliche Bilder, Icons und weitere Assets,
+- CI- und Deployment-Workflows.
+
+Es enthält nicht:
+
+- den Anwendungscode von ForgePool Studio,
+- Secret-Werte oder private Betriebsdaten,
+- Azure-Infrastructure-State,
+- interne Administration.
+
+Content wird über ForgePool Studio gepflegt und durch einen kontrollierten
+GitHub-Pull-Request-Workflow in dieses Repository veröffentlicht. Interne
+Studio-Endpunkte und Betriebsdetails sind nicht Teil dieser Dokumentation.
+
+## Architektur
+
+Die ausgelieferte Anwendung ist eine statische Website:
+
+```text
+src/content/blog + Astro-Komponenten
+  -> Astro Production Build
+  -> Azure Static Web Apps
+  -> Browser
+```
+
+### Publishing
+
+```text
+ForgePool Studio
+  -> GitHub Branch
+  -> Pull Request
+  -> ForgePool Site CI
+  -> Merge nach main
+  -> Azure Static Web Apps Deployment
+  -> öffentliche Website
+```
+
+### Withdrawal
+
+```text
+veröffentlichte Markdown-Datei
+  -> Withdrawal Pull Request
+  -> Markdown-Datei entfernt
+  -> Merge nach main
+  -> Azure Static Web Apps Deployment
+  -> öffentliche Artikel-URL wird nicht mehr erzeugt
+```
+
+Ein Withdrawal entfernt den Artikel aus dem aktuellen Site-Build. Bereits
+öffentliche Git- und Pull-Request-Historie bleibt davon unberührt.
+
+## Content-Modell
+
+Blogartikel liegen als Markdown-Dateien unter `src/content/blog/`. Das aktuelle
+Astro-Schema definiert folgende Frontmatter-Felder:
+
+| Feld | Typ | Bedeutung |
+|---|---|---|
+| `articleId` | UUID | Stabiler fachlicher Artikel-Identifier. |
+| `title` | String | Öffentlicher Artikeltitel. |
+| `description` | String | Kurzbeschreibung für Übersichten und Metadaten. |
+| `date` | Datum | Redaktionelles Datum; es steuert Anzeige und Sortierung, ist aber nicht die technische Erstveröffentlichungszeit. |
+| `publishedAt` | Datum, optional | Kanonischer technischer Zeitpunkt der ersten erfolgreichen Veröffentlichung. |
+| `labelId` | UUID | Referenz auf das fachliche Label. Der sichtbare Labelname wird von der Site aufgelöst. |
+| `featured` | Boolean, Standard `false` | Redaktionelle Hervorhebung. Nur explizit `true` markiert einen Beitrag als Featured. |
+| `draft` | Boolean, Standard `false` | Drafts werden nicht in die statische öffentliche Ausgabe aufgenommen. |
+| `cover` | String, optional | Öffentlicher Pfad zum Titelbild. |
+| `coverAlt` | String, optional | Alternativtext beziehungsweise Bildbeschreibung. |
+
+`slug` und `label` sind keine separaten Frontmatter-Felder: Astro leitet den
+Slug aus dem Markdown-Dateinamen ab; der sichtbare Labelname wird anhand von
+`labelId` aufgelöst.
+
+### `date` und `publishedAt`
+
+`date` ist redaktionell und kann unabhängig von der technischen
+Erstveröffentlichung gewählt werden. `publishedAt` bleibt dagegen der
+kanonische Zeitpunkt der ersten erfolgreichen Veröffentlichung. Normale spätere
+Artikeländerungen dürfen diesen Zeitpunkt nicht neu starten.
+
+### „Neu“
+
+Die „Neu“-Markierung ist kein manuell gepflegtes `isNew`-Feld. Sie wird im
+Browser ausschließlich aus `publishedAt` berechnet und ist exakt im Intervall
+
+```text
+[publishedAt, publishedAt + 14 Tage)
+```
+
+sichtbar. Nach Ablauf wird das Badge zur Laufzeit ausgeblendet; dafür ist kein
+erneuter Content-Commit oder tägliches Deployment erforderlich. Fehlt ein
+gültiges `publishedAt`, erscheint kein „Neu“-Badge. Es gibt keinen Fallback auf
+`date`.
+
+### Featured
+
+Nur `featured: true` bedeutet eine redaktionelle Hervorhebung. Gibt es keine
+explizit hervorgehobenen Artikel, zeigt die Website stattdessen die neuesten
+Beiträge neutral als „Aktuelle Updates“ an. `featured` wird weder aus `date`
+noch aus `publishedAt` abgeleitet.
+
+### Medien
+
+Artikelbezogene Medien liegen unter `public/media/blog/<slug>/` und werden aus
+Markdown oder Frontmatter über öffentliche Pfade wie
+`/media/blog/<slug>/hero.webp` referenziert. Weitere Hinweise stehen in
+[`public/media/blog/README.md`](public/media/blog/README.md).
 
 ## Lokale Entwicklung
 
+Die CI verwendet Node.js 22. Für eine reproduzierbare lokale Installation und
+die im Repository vorhandenen Skripte:
+
 ```powershell
-npm install
+npm ci
 npm run dev
-```
-
-## Build
-
-```powershell
+npm test
 npm run build
 npm run preview
 ```
 
-## Struktur
+`npm run build` erzeugt die statische Ausgabe unter `dist/`. Das Repository
+definiert derzeit keine eigenen `lint`- oder `typecheck`-Skripte.
 
-- `src/pages/` enthält die Seiten: Start, Blog, Roadmap, Kontakt
-- `src/components/` enthält wiederverwendbare UI-Bausteine
-- `src/styles/global.css` enthält Design-Tokens und Responsive Styles
-- `public/` enthält Logos, Icons und Hintergrundbilder
-
-## Deployment zu Azure Static Web Apps
-
-Für GitHub Actions muss im Repo das Secret `AZURE_STATIC_WEB_APPS_API_TOKEN` gesetzt werden.
-
-## V5 changes
-
-- Blog archive restored to full content width.
-- Blog newsletter/email box shortened on desktop.
-- Mobile/tablet header is fixed so it remains visible while scrolling.
-
-
-## V8 Änderung
-
-Sitemap-Integration vorübergehend entfernt, da Azure/Oryx-Build mit @astrojs/sitemap fehlschlug. Kann später sauber ergänzt werden.
-
-
-## Blog schreiben und veröffentlichen
-
-Blogartikel liegen als Markdown-Dateien unter:
+## Projektstruktur
 
 ```text
-src/content/blog/
+.github/workflows/   CI und Azure-Deployment
+public/              öffentliche Assets
+src/components/      wiederverwendbare Astro-Komponenten
+src/content/         Content-Schema und Blog-Content
+src/layouts/         gemeinsame Seitenlayouts
+src/pages/           statisch erzeugte Routen
+src/styles/          globale Styles und Design-Tokens
+test/                Tests der Darstellungslogik
 ```
 
-Medien/Bilder liegen artikelbezogen unter:
+## Repository- und Workflow-Schutz
 
-```text
-public/media/blog/<artikel-slug>/
-```
+Für `main` gilt ein aktives GitHub-Ruleset:
 
-Beispiel:
+- Änderungen gelangen über Pull Requests nach `main`.
+- `Validate Astro build` ist ein verpflichtender Status Check.
+- Der Branch muss vor dem Merge auf dem aktuellen Stand sein.
+- Branch-Löschung und Force Pushes sind blockiert.
+- Als Merge-Methode sind normale Merge-Commits zugelassen.
 
-```text
-src/content/blog/meilenstein-1-abgeschlossen.md
-public/media/blog/meilenstein-1-abgeschlossen/hero.webp
-public/media/blog/meilenstein-1-abgeschlossen/image-01.png
-```
+Die GitHub-Workflows verwenden explizite read-only Permissions. Actions sind
+auf vollständige Commit-SHAs gepinnt; zugelassen sind GitHub-eigene Actions und
+die explizit gepinnte Azure Static Web Apps Deployment Action. Solche Pins
+müssen bei geplanten Action-Updates bewusst aktualisiert werden.
 
-Markdown-Bildreferenz:
+Workflow-Ausführungen aus Pull Requests externer Contributors benötigen eine
+Freigabe durch Maintainer. Ein Pull Request führt nur die Site-CI aus; das
+Production-Deployment läuft bei einem Merge beziehungsweise Push nach `main`
+und kann zusätzlich von berechtigten Maintainern manuell gestartet werden.
 
-```md
-![Beschreibung](/media/blog/meilenstein-1-abgeschlossen/image-01.png)
-```
+Für das öffentliche Repository sind Secret Protection einschließlich Push
+Protection, Dependabot Alerts und Security Updates sowie CodeQL Default Setup
+aktiviert. Diese Kontrollen reduzieren Risiken, garantieren aber weder einen
+schwachstellenfreien Dependency-Stand noch vollständige Sicherheit.
 
-Veröffentlichung:
+## Issues und Contributions
 
-```powershell
-npm run dev
-npm run build
-git add .
-git commit -m "blog: publish <titel>"
-git push
-```
+Issues und Pull Requests sind öffentlich sichtbar. Externe Pull Requests sind
+willkommen, durchlaufen jedoch die beschriebenen Freigabe- und CI-Grenzen. Ein
+Merge nach `main` ist erst nach erfolgreichem Required Check möglich.
 
+## Public visibility and license
 
-### Optionales Titelbild
-
-Wenn ein Artikel ein Titelbild erhalten soll, füge im Frontmatter hinzu:
-
-```yaml
-cover: "/media/blog/meilenstein-1-abgeschlossen/hero.webp"
-coverAlt: "Beschreibung des Titelbildes"
-```
-
-Die Datei muss dann tatsächlich unter `public/media/blog/meilenstein-1-abgeschlossen/hero.webp` liegen.
-
-
-## Featured-Cover und Neu-Markierung
-
-Featured-Kacheln nutzen automatisch das Feld `cover` aus dem Artikel-Frontmatter.
-
-```yaml
-cover: "/media/blog/meilenstein-1-abgeschlossen/hero.webp"
-coverAlt: "Beschreibung des Titelbildes"
-```
-
-Wenn kein `cover` gesetzt ist, nutzt die Kachel automatisch das Standardbild `public/images/backgrounds/card-cube.png`.
-
-Artikel werden automatisch mit `Neu` markiert, wenn das Veröffentlichungsdatum (`date`) maximal 14 Tage zurückliegt. Dafür ist kein zusätzliches Frontmatter-Feld nötig.
-
-
-## V11 Layout-Hinweis
-
-Die `Neu`-Markierung wird automatisch über das Artikeldatum erzeugt:
-
-- Featured-Kacheln: `Neu` sitzt oben rechts separat, damit Kategorie/Datum links stabil bleiben.
-- Journal Archiv: `Neu` sitzt direkt hinter dem Artikeltitel, nicht neben dem Kategorie-Tag.
-
-Featured-Cover werden weiterhin über `cover` im Frontmatter gesteuert. Ohne `cover` greift das Standardbild.
-
-
-## V12 Subscribe-Hinweis
-
-Die Subscribe-/Waitlist-Felder speichern noch keine Daten. Beim Klick auf den Button wird ein Hinweis angezeigt.
-
-- Startseite/Kontakt: Hinweis erscheint unterhalb des Formulars.
-- Blog-Newsletterleiste: Hinweis erscheint innerhalb der Box über die volle Breite.
-- `mailto:` wurde aus den Subscribe-Formularen entfernt; die direkte Kontakt-Mail bleibt als normaler Kontakt-Link erhalten.
-
-
-## V13 Layout-Hinweis
-
-- Die Featured-Metazeile nutzt `max-width: calc(100% - 7rem)` und `white-space: nowrap`, damit Kategorie/Datum auf Desktop nicht umbrechen.
-- Die Blogseite darf jetzt vertikal scrollen. Damit bleibt der Newsletter-Hinweis innerhalb der Seite erreichbar.
-- Auf schmaleren Viewports darf die Metazeile wieder umbrechen, damit Mobile nicht kaputtläuft.
-
-
-## V14 Impressum und Datenschutz
-
-Ergänzt wurden:
-
-- `/impressum/`
-- `/datenschutz/`
-- globaler Footer mit Impressum, Datenschutz und Kontakt
-- Datenschutz-Link in den Subscribe-/Waitlist-Hinweisen
-
-Die Newsletter-/Benachrichtigungsfelder bleiben weiterhin deaktiviert und speichern keine E-Mail-Adressen.
+Dieses Repository ist als Teil des Build-in-Public-Ansatzes von ForgePool
+öffentlich sichtbar. Sofern nicht ausdrücklich anders angegeben, wird derzeit
+keine Open-Source-Lizenz gewährt. Öffentliche Sichtbarkeit allein erteilt keine
+Open-Source-Nutzungsrechte.
